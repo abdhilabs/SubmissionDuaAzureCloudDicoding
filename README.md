@@ -1,5 +1,5 @@
 ---
-services: storage
+services: Azure Storage and Computer Vision
 platforms: php
-author: Abdhilabs
+author: Abdhilabs.
 ---

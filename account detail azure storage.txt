@@ -1,0 +1,4 @@
+account azure storage
+
+account_name : storageabdhi
+account_key : x3vziq/bHong8qCwo0xSPjZ8jVHDCHyHraaz5w0/n5wdWuN/7t1D1qnkRBv189OqgzKtEgMez1ONy/74jrOP+g==
