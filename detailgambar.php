@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>Submission 2 - Azure Storage & Cognitive Service</title>
+		<title>Image Analyzer</title>
 		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 		<!-- Bootstrap core CSS -->
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,56 +25,54 @@ if (isset($_POST['submit'])) {
 		<link href="starter-template.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	</head>
-	
+
 	<body>
-				
+
 			<main role="main" class="container">
 				<div class="starter-template">
-					<br><br><br>
-					<h1>Detail Gambar Ulama</h1>
-					<p>Berikut merupakan tampilan detail gambar ulama<br>
-						Ulama Sepuh Indonesia.</p>
+					<br>Image Analyzer</h1>
+					<p> </p>
 					<span class="border-top my-3"></span>
 				</div>
-				
+
 				<script type="text/javascript">
 					$(document).ready(function () {
 						var subscriptionKey = "2755f3ba2d8b40e8a35dcdcdc50a9268";
 						var uriBase = "https://southeastasia.api.cognitive.microsoft.com/vision/v2.0/analyze";
-						
+
 						// Request parameters.
 						var params = {
 							"visualFeatures": "Categories,Description,Color",
 							"details": "",
 							"language": "en",
 						};
-						
+
 						// Display the image.
 						var sourceImageUrl = "<?php echo $url ?>";
 						document.querySelector("#sourceImage").src = sourceImageUrl;
-						
+
 						// Make the REST API call.
 						$.ajax({
 							url: uriBase + "?" + $.param(params),
-							
+
 							// Request headers.
 							beforeSend: function(xhrObj){
 								xhrObj.setRequestHeader("Content-Type","application/json");
 								xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
 							},
 							type: "POST",
-							
+
 							// Request body.
 							data: '{"url": ' + '"' + sourceImageUrl + '"}',
 						})
 							.done(function(data) {
-							
+
 							// Show formatted JSON on webpage.
 							$("#responseTextArea").val(JSON.stringify(data, null, 2));
 							$("#description").text(data.description.captions[0].text);
 						})
 							.fail(function(jqXHR, textStatus, errorThrown) {
-							
+
 							// Display error message.
 							var errorString = (errorThrown === "") ? "Error. " :
 							errorThrown + " (" + jqXHR.status + "): ";
@@ -85,7 +83,7 @@ if (isset($_POST['submit'])) {
 					});
 				</script>
 				<br>
-				
+
 				<div id="wrapper" style="width:1020px; display:table;">
 					<div id="jsonOutput" style="width:600px; display:table-cell;">
 						<b>Response:</b><br><br>
