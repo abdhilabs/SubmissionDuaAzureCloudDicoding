@@ -1,6 +1,7 @@
 <?php
-require_once 'autoload.php';
-require_once "random_string.php";
+
+require_once 'vendor/autoload.php';
+require_once "./random_string.php";
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
@@ -12,16 +13,16 @@ $connectionString = "DefaultEndpointsProtocol=https;AccountName=storageabdhi;Acc
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 $containerName = "abdhiblobs";
-	
+
 if (isset($_POST['submit'])) {
 	$fileToUpload = $_FILES["fileToUpload"]["name"];
 	$content = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 	echo fread($content, filesize($fileToUpload));
-		
+
 	$blobClient->createBlockBlob($containerName, $fileToUpload, $content);
 	header("Location: index.php");
-}	
-	
+}
+
 $listBlobsOptions = new ListBlobsOptions();
 $listBlobsOptions->setPrefix("");
 $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
@@ -34,22 +35,22 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>Submission 2 - Azure Storage & Cognitive Service</title>
+		<title>Azure Image Analyzer</title>
 		<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
 		<!-- Bootstrap core CSS -->
 		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href="starter-template.css" rel="stylesheet">
 	</head>
-	
+
 	<body>
 			<main role="main" class="container">
 				<div class="starter-template"> <br><br><br>
-					<h1>Upload Foto Ulama</h1>
+					<h1>Upload Your Image</h1>
 					<br>
-					<p class="lead">Pilih foto anda<br> Kemudian klik <b>Upload</b>. Untuk melihat detail foto Ulama, pilih <b>Detail Gambar</b> pada tabel.</p>
+					<p class="lead">Choose your image</p>
 					<span class="border-top my-3"></span>
-				</div>				
+				</div>
 				<div class="mt-4 mb-2">
 					<form class="d-flex justify-content-lefr" action="index.php" method="post" enctype="multipart/form-data">
 						<input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png" required>
@@ -57,8 +58,8 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 					</form>
 				</div>
 				<br>
-				
-				<table class='table table-hover'>
+        <div
+        <table class='table table-hover'>
 					<thead>
 						<tr>
 							<th>File Name</th>
@@ -66,12 +67,12 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 							<th>Action</th>
 						</tr>
 					</thead>
-					
+
 					<tbody>
 						<?php
 						do {
 							foreach ($result->getBlobs() as $blob) {
-						?>						
+						?>
 						<tr>
 							<td><?php echo $blob->getName() ?></td>
 							<td><?php echo $blob->getUrl() ?></td>
@@ -89,7 +90,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
 					</tbody>
 				</table>
 				</div>
-			
-				
+
+
 			</body>
 		</html>
